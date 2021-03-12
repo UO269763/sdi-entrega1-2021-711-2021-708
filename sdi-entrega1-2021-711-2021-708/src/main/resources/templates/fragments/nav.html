@@ -10,7 +10,7 @@
 
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav" sec:authorize="hasRole('ROLE_ADMIN')">
 				<li class="active"><a href="/user/list">Ver lista de
 						usuarios</a></li>
 			</ul>
@@ -35,11 +35,16 @@
 					</ul></li>
 
 
-				<li><a href="/signup"  th:text="#{signup.message}"> <span
-						class="glyphicon glyphicon-user"></span> Regístrate
+				<li sec:authorize="!isAuthenticated()"><a href="/signup"
+					th:text="#{signup.message}"> <span
+						class="glyphicon glyphicon-user"></span> Registrate
 				</a></li>
-				<li><a href="/login" th:text="#{login.message}"> <span
-						class="glyphicon glyphicon-log-in"></span> Inicia sesión
+				<li sec:authorize="!isAuthenticated()"><a href="/login"
+					th:text="#{login.message}"> <span
+						class="glyphicon glyphicon-log-in"></span> Identifícate
+				</a></li>
+				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
+						class="glyphicon glyphicon-log-out"></span> Desconectar
 				</a></li>
 			</ul>
 		</div>
