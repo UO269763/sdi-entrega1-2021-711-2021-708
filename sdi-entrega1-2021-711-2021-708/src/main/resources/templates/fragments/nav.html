@@ -10,14 +10,23 @@
 
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav" sec:authorize="hasRole('ROLE_ADMIN')">
-				<li class="active"><a href="/user/list">Ver lista de
-						usuarios</a></li>
+			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+				<li><a href="/">Home</a></li>
+				<li id="users-menu" class="dropdown"
+					sec:authorize="hasRole('ROLE_ADMIN')"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#">
+						Gestión de Usuarios <span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="/user/list">Ver Usuarios</a></li>
+					</ul></li>
+
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 
 				<li class="dropdown"><a id="btnLanguage" href="
- 					#"	class="dropdown-toggle" data-toggle="dropdown" role="button"
+ 					#"
+					class="dropdown-toggle" data-toggle="dropdown" role="button"
 					aria-haspopup="true" aria-expanded="false"> <span
 						th:text="#{language.change}"></span> <span class="caret"></span>
 				</a>

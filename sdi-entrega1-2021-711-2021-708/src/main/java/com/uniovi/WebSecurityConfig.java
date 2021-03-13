@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/css/**", "/img/**", "/script/**", "/", "/signup", "/login/**").permitAll().anyRequest()
+				.antMatchers("/css/**", "/img/**", "/script/**", "/", "/signup", "/login/**").permitAll().antMatchers("/user/list").hasAnyAuthority("ROLE_ADMIN").anyRequest()
 				.authenticated().and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/home").and()
 				.logout().permitAll();
 	}
@@ -41,9 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
+
 	@Bean
 	public SpringSecurityDialect securityDialect() {
-	return new SpringSecurityDialect();
+		return new SpringSecurityDialect();
 	}
 }
