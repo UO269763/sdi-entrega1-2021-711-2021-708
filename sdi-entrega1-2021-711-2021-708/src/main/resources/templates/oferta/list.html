@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head" />
+<body>
+	<nav th:replace="fragments/nav" />
+	<div class="container" style="text-align: center">
+		<h1> Ofertas </h1>
+		
+		<form class="navbar-form" action="/oferta/list">
+		</form>
+		<p>Las ofertas que actualmente figuran en el sistema son las
+			siguientes:</p>
+		<div class="table-responsive">
+			<table class="table table-hover" th:fragment="tableOfertas"
+				id="tableOfertas">
+				<thead>
+					<tr>
+						<th class="col-md-1">id</th>
+						<th>Título</th>
+						<th>Fecha</th>
+						<th>Descripción</th>
+						<th>Precio</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="oferta : ${ofertaList}">
+						<td th:text="${oferta.id}">1</td>
+						<td th:text="${oferta.titulo}">Sudadera adidas</td>
+						<td th:text="${#dates.format(oferta.fecha, 'dd MMM yyyy')}"></td>
+						<td th:text="${oferta.descripcion}">Sudadera roja marca adidas</td>
+						<td th:text="${oferta.precio}">20</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+	<footer th:replace="fragments/pagination" />
+		
+		
+</body>
+</html>
