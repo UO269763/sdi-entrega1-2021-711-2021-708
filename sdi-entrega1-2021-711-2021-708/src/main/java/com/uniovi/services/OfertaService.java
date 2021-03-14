@@ -35,7 +35,7 @@ public class OfertaService {
 	}
 
 	public void deleteOferta(Long id) {
-		ofertasRepository.deleteForUserId(id);
+		ofertasRepository.deleteById(id);
 	}
 	
 	

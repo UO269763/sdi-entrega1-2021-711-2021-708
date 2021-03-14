@@ -20,6 +20,7 @@
 						<th>Fecha</th>
 						<th>Descripción</th>
 						<th>Precio</th>
+						<th class="col-md-1"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,6 +30,8 @@
 						<td th:text="${#dates.format(oferta.fecha, 'dd MMM yyyy')}"></td>
 						<td th:text="${oferta.descripcion}">Sudadera roja marca adidas</td>
 						<td th:text="${oferta.precio}">20</td>
+						<td><a th:href="${'/oferta/delete/' + oferta.id}">eliminar</a></td>
+						
 					</tr>
 				</tbody>
 			</table>

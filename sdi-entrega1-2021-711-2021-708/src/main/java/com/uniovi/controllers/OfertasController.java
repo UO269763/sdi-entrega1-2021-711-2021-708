@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import com.uniovi.entities.Oferta;
 import com.uniovi.entities.User;
 import com.uniovi.services.OfertaService;
@@ -66,18 +67,6 @@ public class OfertasController {
 		return "redirect:/oferta/list";
 	}
 	
-	@RequestMapping("/oferta/details/{id}" )
-	public String getDetail(Model model, @PathVariable Long id){
-		model.addAttribute("oferta", ofertasService.getOferta(id));
-		return "oferta/details";
-	}
-	
-	@RequestMapping("/oferta/delete/{id}" )
-	public String deleteMarks(@PathVariable Long id) {
-		ofertasService.deleteOferta(id);
-		return "redirect:/oferta/list";
-	}
-	
 	@RequestMapping(value="/oferta/add")
 	public String getOferta(Model model, Pageable pageable){
 		//Cambiar metodo usersService a pageable
@@ -86,7 +75,16 @@ public class OfertasController {
 		return "oferta/add";
 	}
 	
-
-
+	@RequestMapping("/oferta/details/{id}" )
+	public String getDetail(Model model, @PathVariable Long id){
+		model.addAttribute("oferta", ofertasService.getOferta(id));
+		return "oferta/details";
+	}
+	
+	@RequestMapping("/oferta/delete/{id}" )
+	public String deleteOferta(@PathVariable Long id) {
+		ofertasService.deleteOferta(id);
+		return "redirect:/oferta/list";
+	}
 	
 }

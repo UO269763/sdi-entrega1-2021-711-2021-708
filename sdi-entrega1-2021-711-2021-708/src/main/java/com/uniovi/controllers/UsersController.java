@@ -33,7 +33,7 @@ public class UsersController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
-
+	
 	// REGISTRO GET
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Model model) {
