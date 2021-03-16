@@ -35,18 +35,20 @@
 						<td th:text="${oferta.titulo}">Sudadera Nike</td>
 						<td th:text="${oferta.descripcion}">Gris</td>
 						<td th:text="${oferta.precio}">20€</td>
-						<td><button th:if="${oferta.comprable}" type="button"
-								th:id="${'comprarBoton' + oferta.id}" class="btn btn-info"
-								th:text=Comprar>
-								</a></td>
-						<script th:inline="javascript">
+						<td>
+							<div>
+								<div th:if="${oferta.comprable}">
+									<button type="button" th:id="${'comprarBoton' + oferta.id}"
+										class="btn btn-info">Comprar</button>
+									<script th:inline="javascript">
 							/*<![CDATA[*/
 							$( "#comprarBoton[[${oferta.id}]]" ).click(function() {
-								$.get("/request/send/[[${oferta.id}]]", function(data) {
-									if (data === 'true') {
+								$.get("/oferta/comprar/[[${oferta.id}]]", function(data) {
+									
+										console.log([[${oferta.id}]]);
 										var numberPage = [[${param.page}]];
 										var searchText = [[${param.searchText}]];
-										var urlUpdate = '/home/update';
+										var urlUpdate = '/oferta/search/update';
 										var parameters = {}
 										
 										if (searchText != null )
@@ -55,16 +57,23 @@
 											parameters['page'] = numberPage[0]
 										
 										$("#tableOfertas").load(urlUpdate, parameters);
-									}
+									
 								});
 							 });
 							 /*]]>*/
 						</script>
+								</div>
+								<div th:unless="${oferta.comprable}">
+									<button type="button" th:id="${'comprado' + oferta.id}"
+										class="btn btn-default" disabled>Comprado</button>
+								</div>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<footer th:replace="fragments/pagination"/>
+		<footer th:replace="fragments/pagination" />
 	</div>
 	<footer th:replace="fragments/footer" />
 </body>

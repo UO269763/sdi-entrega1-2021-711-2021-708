@@ -1,6 +1,7 @@
 package com.uniovi.services;
 
 import java.util.LinkedList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,6 +37,11 @@ public class OfertaService {
 		ofertasRepository.deleteById(id);
 	}
 
+	public void comprarOferta(Long id) {
+		Optional<Oferta> oferta = ofertasRepository.findById(id);
+		oferta.get().setComprable(false);
+		ofertasRepository.save(oferta.get());
+	}
 	public Page<Oferta> searchOfertaByTitulo(Pageable pageable, String searchText) {
 		Page<Oferta> ofertas = new PageImpl<Oferta>(new LinkedList<Oferta>());
 		searchText = "%" + searchText + "%";
@@ -52,6 +58,8 @@ public class OfertaService {
 
 		return ofertas;
 	}
+
+	
 
 
 }

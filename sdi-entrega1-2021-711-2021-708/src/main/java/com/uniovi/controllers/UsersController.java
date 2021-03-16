@@ -68,7 +68,8 @@ public class UsersController {
 
 	// PÁGINA PRINCIPAL
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, @ModelAttribute User user ) {
+		model.addAttribute("user",user);
 		return "home";
 	}
 

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uniovi.entities.Oferta;
 import com.uniovi.entities.User;
-import com.uniovi.repositories.OfertasRepository;
 import com.uniovi.services.OfertaService;
 import com.uniovi.services.UsersService;
 import com.uniovi.validators.OfertaValidator;
@@ -57,13 +55,14 @@ public class OfertasController {
 	public String getListado(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
 		Page<Oferta> ofertas = new PageImpl<Oferta>(new LinkedList<Oferta>());
-		//en caso de que sea una cadena vacía se tienen que listar todas las ofertas de la página
+		// en caso de que sea una cadena vacía se tienen que listar todas las ofertas de
+		// la página
 		if (searchText == "") {
 			model.addAttribute("ofertasList", ofertasService.searchAllOfertas(pageable));
 			model.addAttribute("page", ofertas);
 			return "oferta/search";
 		}
-		//en caso de que el searchtext no esté vacío mostrar resultados.
+		// en caso de que el searchtext no esté vacío mostrar resultados.
 		if (searchText != null && !searchText.isEmpty()) {
 			ofertas = ofertasService.searchOfertaByTitulo(pageable, searchText);
 			model.addAttribute("ofertasList", ofertas.getContent());
@@ -76,6 +75,30 @@ public class OfertasController {
 		return "oferta/search";
 	}
 
+	@RequestMapping("/oferta/search/update")
+	public String updateListado(Model model, Pageable pageable, Principal principal,
+			@RequestParam(value = "", required = false) String searchText) {
+		Page<Oferta> ofertas = new PageImpl<Oferta>(new LinkedList<Oferta>());
+		// en caso de que sea una cadena vacía se tienen que listar todas las ofertas de
+		// la página
+		if (searchText == "") {
+			model.addAttribute("ofertasList", ofertasService.searchAllOfertas(pageable));
+			//model.addAttribute("page", ofertas);
+			return "oferta/search :: tableOfertas";
+		}
+		// en caso de que el searchtext no esté vacío mostrar resultados.
+		if (searchText != null && !searchText.isEmpty()) {
+			ofertas = ofertasService.searchOfertaByTitulo(pageable, searchText);
+			model.addAttribute("ofertasList", ofertas.getContent());
+			//model.addAttribute("page", ofertas);
+			return "oferta/search :: tableOfertas";
+
+		}
+		
+		model.addAttribute("ofertasList", null);
+		return "oferta/search :: tableOfertas";
+	}
+
 	@RequestMapping(value = "/oferta/add", method = RequestMethod.POST)
 	public String setOferta(@Validated Oferta oferta, BindingResult result, Principal principal) {
 		String email = principal.getName(); // email es el name de la autenticación
@@ -85,7 +108,6 @@ public class OfertasController {
 			return "oferta/add";
 		}
 		ofertasService.addOferta(oferta, user);
-		;
 		return "redirect:/oferta/list";
 	}
 
@@ -109,4 +131,9 @@ public class OfertasController {
 		return "redirect:/oferta/list";
 	}
 
+	@RequestMapping("/oferta/comprar/{id}")
+	public String comprarOferta(@PathVariable Long id) {
+		ofertasService.comprarOferta(id);
+		return "redirect:/oferta/list";
+	}
 }

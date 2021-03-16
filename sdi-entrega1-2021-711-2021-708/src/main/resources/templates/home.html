@@ -10,6 +10,9 @@
 			Usuario Autenticado como : <b th:inline="text">
 				[[${#httpServletRequest.remoteUser}]] </b>
 		</p>
+		<p th:object="${user}">
+			<b th:inline="text" th:text="${user.dinero}"></b>
+		</p>
 	</div>
 	<footer th:replace="fragments/footer" />
 </body>

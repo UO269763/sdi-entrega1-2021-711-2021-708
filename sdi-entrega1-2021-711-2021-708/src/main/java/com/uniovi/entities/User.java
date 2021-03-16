@@ -18,7 +18,7 @@ public class User {
 	private String email;
 	private String name;
 	private String lastName;
-	private double dinero;
+	private double dinero=100;
 	private String role;
 
 	private String password;

@@ -22,8 +22,7 @@ public class Oferta {
 	public Date fecha = new Date();
 	public int precio;
 	
-	@Transient
-	private boolean comprable;
+	private Boolean comprable=true;
 	
 	@ManyToOne
 	@JoinColumn
