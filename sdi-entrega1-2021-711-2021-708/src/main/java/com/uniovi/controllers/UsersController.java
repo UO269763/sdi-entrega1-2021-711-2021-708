@@ -17,6 +17,7 @@ import com.uniovi.entities.User;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
+import com.uniovi.validators.LoginValidator;
 import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
@@ -33,6 +34,9 @@ public class UsersController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
+	
+	@Autowired
+	private LoginValidator loginValidator;
 	
 	// REGISTRO GET
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -57,7 +61,18 @@ public class UsersController {
 	// INICIO DE SESIÓN
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
+		model.addAttribute("user", new User());
 		return "login";
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(@Validated User user, BindingResult result) {
+		loginValidator.validate(user, result);
+		if (result.hasErrors()) {
+			return "login";
+		}
+		//securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
+		return "redirect:home";
 	}
 
 	// PÁGINA PRINCIPAL
