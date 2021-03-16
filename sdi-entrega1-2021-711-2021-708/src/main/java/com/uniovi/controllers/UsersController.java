@@ -61,19 +61,10 @@ public class UsersController {
 	// INICIO DE SESIÓN
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
-		model.addAttribute("user", new User());
+		//model.addAttribute("user", new User());
 		return "login";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@Validated User user, BindingResult result) {
-		loginValidator.validate(user, result);
-		if (result.hasErrors()) {
-			return "login";
-		}
-		//securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
-		return "redirect:home";
-	}
 
 	// PÁGINA PRINCIPAL
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
