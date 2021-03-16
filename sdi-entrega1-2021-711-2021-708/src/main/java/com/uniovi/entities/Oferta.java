@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "oferta")
@@ -20,6 +21,9 @@ public class Oferta {
 	public String descripcion;
 	public Date fecha = new Date();
 	public int precio;
+	
+	@Transient
+	private boolean comprable;
 	
 	@ManyToOne
 	@JoinColumn
@@ -80,4 +84,21 @@ public class Oferta {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public boolean isComprable() {
+		return comprable;
+	}
+
+	public void setComprable(boolean comprable) {
+		this.comprable = comprable;
+	}
+	
 }
