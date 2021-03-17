@@ -20,13 +20,17 @@ public class Oferta {
 	public String titulo;
 	public String descripcion;
 	public Date fecha = new Date();
-	public int precio;
+	public double precio;
 	
 	private Boolean comprable=true;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "user")
 	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "comprador")
+	private User comprador;
 	
 	public Oferta(String titulo, String descripcion, int precio) {
 		super();
@@ -68,11 +72,11 @@ public class Oferta {
 		this.fecha = fecha;
 	}
 
-	public int getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(int precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 	
@@ -99,5 +103,14 @@ public class Oferta {
 	public void setComprable(boolean comprable) {
 		this.comprable = comprable;
 	}
+
+	public User getComprador() {
+		return comprador;
+	}
+
+	public void setComprador(User comprador) {
+		this.comprador = comprador;
+	}
+	 
 	
 }

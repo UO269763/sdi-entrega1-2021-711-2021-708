@@ -132,8 +132,24 @@ public class OfertasController {
 	}
 
 	@RequestMapping("/oferta/comprar/{id}")
-	public String comprarOferta(@PathVariable Long id) {
-		ofertasService.comprarOferta(id);
+	public String comprarOferta(@PathVariable Long id, Principal principal) {
+		String email = principal.getName(); // email es el name de la autenticación
+		User user = usersService.getUserByEmail(email);
+		double precioOferta = ofertasService.precioOferta(id);
+		double dineroUsuario = user.getDinero();
+		if(precioOferta <= dineroUsuario) {
+			user.setDinero(dineroUsuario - precioOferta);
+			ofertasService.comprarOferta(id, user);
+			return "redirect:/oferta/list";
+		}
 		return "redirect:/oferta/list";
+	}
+	
+	@RequestMapping("/oferta/listCompras")
+	public String getListCompras(Model model, Principal principal) {
+		String email = principal.getName(); // email es el name de la autenticación
+		User user = usersService.getUserByEmail(email);
+		model.addAttribute("ofertaList", user.getOfertasCompradas());
+		return "oferta/listCompras";
 	}
 }

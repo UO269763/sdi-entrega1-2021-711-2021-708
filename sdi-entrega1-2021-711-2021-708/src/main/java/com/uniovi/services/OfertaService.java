@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 import com.uniovi.entities.Oferta;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.OfertasRepository;
+import com.uniovi.repositories.UsersRepository;
 
 @Service
 public class OfertaService {
 
 	@Autowired
 	private OfertasRepository ofertasRepository;
+	
+	@Autowired
+	private UsersRepository usersRepository;
 
 	public Page<Oferta> getOfertas(Pageable pageable, User user) {
 		return ofertasRepository.findByUser(pageable, user);
@@ -37,11 +41,26 @@ public class OfertaService {
 		ofertasRepository.deleteById(id);
 	}
 
-	public void comprarOferta(Long id) {
+	public void comprarOferta(Long id, User usuarioComprador) {
 		Optional<Oferta> oferta = ofertasRepository.findById(id);
+		
+		Oferta aux = getOferta(id);
+		
+		Optional<User> usuario = usersRepository.findById(usuarioComprador.getId());
 		oferta.get().setComprable(false);
+		oferta.get().setComprador(usuarioComprador);
+		usuario.get().comprarOferta(aux);
+		usersRepository.save(usuario.get());
 		ofertasRepository.save(oferta.get());
+		
 	}
+	
+	public double precioOferta(Long id) {
+		Optional<Oferta> oferta = ofertasRepository.findById(id);
+		return oferta.get().getPrecio();
+	}
+	
+	
 	public Page<Oferta> searchOfertaByTitulo(Pageable pageable, String searchText) {
 		Page<Oferta> ofertas = new PageImpl<Oferta>(new LinkedList<Oferta>());
 		searchText = "%" + searchText + "%";
