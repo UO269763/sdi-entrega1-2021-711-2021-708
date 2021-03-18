@@ -4,11 +4,11 @@
 <body>
 	<nav th:replace="fragments/nav" />
 	<div class="container" style="text-align: center">
-		<h1> Ofertas compradas</h1>
+		<h1 th:text="#{offer_bougth.message}"> Mis compras </h1>
 		
 		<form class="navbar-form" action="/oferta/listCompras">
 		</form>
-		<p>Las compras que actualmente figuran en el sistema son las
+		<p th:text="#{offer_listC_p.message}">Las compras que actualmente figuran en el sistema son las
 			siguientes:</p>
 		<div class="table-responsive">
 			<table class="table table-hover" th:fragment="tableOfertas"
@@ -16,10 +16,10 @@
 				<thead>
 					<tr>
 						<th class="col-md-1">id</th>
-						<th>Título</th>
-						<th>Descripción</th>
-						<th>Precio</th>
-						<th>Vendedor</th>
+						<th th:text="#{offer_list_title.message}">TÃ­tulo</th>
+						<th th:text="#{offer_list_descrp.message}">DescripciÃ³n</th>
+						<th th:text="#{offer_list_price.message}">Precio</th>
+						<th th:text="#{offer_list_vend.message}">Vendedor</th>
 						<th class="col-md-1"></th>
 					</tr>
 				</thead>

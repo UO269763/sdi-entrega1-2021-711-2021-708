@@ -5,11 +5,11 @@
 	<!-- Barra de Navegación superior -->
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2>Lista de usuarios de MyWallapop</h2>
-		<p>Los usuarios que actualmente figuran en el sistema son los
+		<h2 th:text="#{user_list_title.message}">Lista de usuarios de MyWallapop</h2>
+		<p th:text="#{user_list_descr.message}">Los usuarios que actualmente figuran en el sistema son los
 			siguientes:</p>
 		<button type="button" id="deleteButtonUsuarios"
-			class="btn btn-default">Eliminar usuarios seleccionados</button>
+			class="btn btn-default" th:text="#{user_list_button.message}">Eliminar usuarios seleccionados</button>
 		<script th:inline="javascript">
 			$("#deleteButtonUsuarios").click(function() {
 				var c = 0;
@@ -37,8 +37,8 @@
 					<tr>
 						<th></th>
 						<th>Email</th>
-						<th>Nombre</th>
-						<th>Apellidos</th>
+						<th th:text="#{name.message}">Nombre</th>
+						<th th:text="#{lastname.message}">Apellidos</th>
 					</tr>
 				</thead>
 				<tbody>

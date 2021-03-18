@@ -4,17 +4,18 @@
 <body>
 	<nav th:replace="fragments/nav" />
 	<div class="container" style="text-align: center">
-		<h2>Bienvenido</h2>
-		<h3>Esta es una zona privada la web</h3>
+		<h2 th:text="#{home_welcome.message}">Bienvenido</h2>
+		<h3 th:text="#{home_private.message}">Esta es una zona privada la Web</h3>
 		<p>
-			Usuario Autenticado como : <b th:inline="text">
+			<b th:inline="text">
 				[[${#httpServletRequest.remoteUser}]] </b>
 		</p>
-		<p>
+		<p th:text="#{home_saldo.message}">
 			Saldo disponible
 		</p>
-		<p th:object="${user}">
-					<b th:inline="text" th:text="${user.dinero}"></b>
+		<p>
+					<b th:if="${session.containsKey('dinero')}"
+					th:text="${session.dinero}">€</b>
 		</p>
 	</div>
 	<footer th:replace="fragments/footer" />

@@ -14,27 +14,34 @@
 				<li><a href="/">Home</a></li>
 				<li id="users-menu" class="dropdown"
 					sec:authorize="hasRole('ROLE_ADMIN')"><a
-					class="dropdown-toggle" data-toggle="dropdown" href="#">
-						Gestión de usuarios <span class="caret"></span>
+					class="dropdown-toggle" data-toggle="dropdown" href="#"
+					th:text="#{user_management.message}"> Gestión de usuarios <span
+						class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="/user/list">Ver Usuarios</a></li>
+						<li><a href="/user/list" th:text="#{user_list.message}">Ver
+								Usuarios</a></li>
 					</ul></li>
 				<li id="ofertas-menu" class="dropdown"><a
-					class="dropdown-toggle" data-toggle="dropdown" href="#">
-						Gestion ofertas <span class="caret"></span>
+					class="dropdown-toggle" data-toggle="dropdown" href="#"
+					th:text="#{offer_management.message}"> Gestion ofertas <span
+						class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="/oferta/add">Agregar oferta</a></li>
-						<li><a href="/oferta/list">Mis ofertas</a></li>
-						<li><a href="/oferta/search">Buscar ofertas</a></li>
-						<li><a href="/oferta/listCompras">Mis compras</a></li>
+						<li><a href="/oferta/add" th:text="#{offer_add.message}">Agregar
+								oferta</a></li>
+						<li><a href="/oferta/list" th:text="#{offer_list.message}">Mis
+								ofertas</a></li>
+						<li><a href="/oferta/search"
+							th:text="#{offer_search.message}">Buscar ofertas</a></li>
+						<li><a href="/oferta/listCompras"
+							th:text="#{offer_bougth.message}">Mis compras</a></li>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li sec:authorize="isAuthenticated()"><span
+				<li sec:authorize="isAuthenticated()"><a><span
 					th:if="${session.containsKey('dinero')}"
-					th:text="${session.dinero}"> </span> </li>
+					th:text="${session.dinero}" class="glyphicon glyphicon-euro"> </span></a></li>
 				<li class="dropdown"><a id="btnLanguage" href="
  					#"
 					class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -62,7 +69,8 @@
 						class="glyphicon glyphicon-log-in"></span> Identifícate
 				</a></li>
 
-				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
+				<li sec:authorize="isAuthenticated()"><a href="/logout"
+					th:text="#{logout.message}"> <span
 						class="glyphicon glyphicon-log-out"></span> Desconectar
 				</a></li>
 			</ul>
