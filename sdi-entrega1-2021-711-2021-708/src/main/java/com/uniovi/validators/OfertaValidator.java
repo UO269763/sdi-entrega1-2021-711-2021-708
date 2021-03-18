@@ -24,7 +24,6 @@ public class OfertaValidator implements Validator{
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "titulo", "error.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descripcion", "error.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "precio", "error.empty");
-		System.out.println(oferta.getTitulo());
 		if (oferta.getTitulo().length() > MAX_LONG_TITULO)
 			errors.rejectValue("title", "error.oferta.title.length");
 		

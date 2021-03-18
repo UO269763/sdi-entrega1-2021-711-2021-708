@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="fragments/head" />
-<body>
+<body th:fragment="body" id="body">
 	<!-- Barra de Navegación superior -->
-	<nav th:replace="fragments/nav" />
+	<nav th:replace="fragments/nav"/>
 	<div class="container">
 		<h2>Ofertas</h2>
 		<form class="navbar-form" action="/oferta/search">
@@ -45,19 +45,16 @@
 							$( "#comprarBoton[[${oferta.id}]]" ).click(function() {
 								$.get("/oferta/comprar/[[${oferta.id}]]", function(data) {
 									
-										console.log([[${oferta.id}]]);
 										var numberPage = [[${param.page}]];
 										var searchText = [[${param.searchText}]];
 										var urlUpdate = '/oferta/search/update';
 										var parameters = {}
-										
 										if (searchText != null )
 											parameters['searchText'] = searchText[0]
 										if (numberPage != null )
 											parameters['page'] = numberPage[0]
 										
-										$("#tableOfertas").load(urlUpdate, parameters);
-									
+										$("#body").load(urlUpdate, parameters);
 								});
 							 });
 							 /*]]>*/

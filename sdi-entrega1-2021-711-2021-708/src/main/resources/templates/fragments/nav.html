@@ -19,28 +19,22 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a href="/user/list">Ver Usuarios</a></li>
-					</ul>
-					</li>
-			<li id="ofertas-menu" class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					</ul></li>
+				<li id="ofertas-menu" class="dropdown"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#">
 						Gestion ofertas <span class="caret"></span>
-					</a>
+				</a>
 					<ul class="dropdown-menu">
-						<li>
-							<a href="/oferta/add">Agregar oferta</a>
-						</li>
-						<li>
-							<a href="/oferta/list">Mis ofertas</a>
-						</li>
-						<li>
-							<a href="/oferta/search">Buscar ofertas</a>
-						</li>
-					</ul>
-				</li>
-
+						<li><a href="/oferta/add">Agregar oferta</a></li>
+						<li><a href="/oferta/list">Mis ofertas</a></li>
+						<li><a href="/oferta/search">Buscar ofertas</a></li>
+						<li><a href="/oferta/listCompras">Mis compras</a></li>
+					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-
+				<li sec:authorize="isAuthenticated()"><span
+					th:if="${session.containsKey('dinero')}"
+					th:text="${session.dinero}"> </span> </li>
 				<li class="dropdown"><a id="btnLanguage" href="
  					#"
 					class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -59,8 +53,6 @@
 								th:text="#{language.es}">Español</span>
 						</a></li>
 					</ul></li>
-
-
 				<li sec:authorize="!isAuthenticated()"><a href="/signup"
 					th:text="#{signup.message}"> <span
 						class="glyphicon glyphicon-user"></span> Registrate
@@ -69,6 +61,7 @@
 					th:text="#{login.message}"> <span
 						class="glyphicon glyphicon-log-in"></span> Identifícate
 				</a></li>
+
 				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
 						class="glyphicon glyphicon-log-out"></span> Desconectar
 				</a></li>

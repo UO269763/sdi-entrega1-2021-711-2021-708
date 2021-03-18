@@ -3,6 +3,8 @@ package com.uniovi.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,6 @@ import com.uniovi.entities.User;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
-import com.uniovi.validators.LoginValidator;
 import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
@@ -35,10 +36,10 @@ public class UsersController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
-	
+
 	@Autowired
-	private LoginValidator loginValidator;
-	
+	private HttpSession httpSession;
+
 	// REGISTRO GET
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Model model) {
@@ -62,16 +63,17 @@ public class UsersController {
 	// INICIO DE SESIÓN
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model, @RequestParam(value = "error", required = false) String error) {
-		//model.addAttribute("user", new User());
+		// model.addAttribute("user", new User());
 		model.addAttribute("error", error);
 		return "login";
 	}
-	
 
 	// PÁGINA PRINCIPAL
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-	public String home(Model model, @ModelAttribute User user ) {
-		model.addAttribute("user",user);
+	public String home(Model model, @ModelAttribute User user) {
+		// HttpSession
+		httpSession.setAttribute("dinero", user.getDinero());
+		model.addAttribute("user", user);
 		return "home";
 	}
 
@@ -92,9 +94,9 @@ public class UsersController {
 	// OBTENCIÓN DEL LISTADO
 	@RequestMapping("/user/list")
 	public String getListado(Model model) {
-		List<User> usuarios=usersService.getUsers();
+		List<User> usuarios = usersService.getUsers();
 		List<User> nueva = new ArrayList<>();
-		for(User u:usuarios) {
+		for (User u : usuarios) {
 			if (!u.getEmail().contentEquals("admin@email.es")) {
 				nueva.add(u);
 			}
@@ -102,12 +104,12 @@ public class UsersController {
 		model.addAttribute("usersList", nueva);
 		return "user/list";
 	}
-	
+
 	@RequestMapping("/user/list/update")
 	public String updateList(Model model) {
-		List<User> usuarios=usersService.getUsers();
+		List<User> usuarios = usersService.getUsers();
 		List<User> nueva = new ArrayList<>();
-		for(User u:usuarios) {
+		for (User u : usuarios) {
 			if (!u.getEmail().contentEquals("admin@email.es")) {
 				nueva.add(u);
 			}
@@ -115,7 +117,7 @@ public class UsersController {
 		model.addAttribute("usersList", nueva);
 		return "user/list :: tableUsers";
 	}
-	
+
 	@RequestMapping("/user/delete/{id}")
 	public String delete(@PathVariable Long id) {
 		usersService.deleteUser(id);

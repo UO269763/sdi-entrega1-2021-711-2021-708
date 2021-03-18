@@ -3,6 +3,8 @@ package com.uniovi.controllers;
 import java.security.Principal;
 import java.util.LinkedList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -34,6 +36,9 @@ public class OfertasController {
 	@Autowired
 	private OfertaValidator ofertaValidator;
 
+	@Autowired
+	private HttpSession httpSession;
+
 	@RequestMapping("/oferta/list")
 	public String getList(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
@@ -54,6 +59,7 @@ public class OfertasController {
 	@RequestMapping("/oferta/search")
 	public String getListado(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
+		
 		Page<Oferta> ofertas = new PageImpl<Oferta>(new LinkedList<Oferta>());
 		// en caso de que sea una cadena vacía se tienen que listar todas las ofertas de
 		// la página
@@ -78,27 +84,30 @@ public class OfertasController {
 	@RequestMapping("/oferta/search/update")
 	public String updateListado(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
+		// actualizamos el dinero del usuario
+		String email = principal.getName(); // email es el name de la autenticación
+		User user = usersService.getUserByEmail(email);
+		httpSession.setAttribute("dinero", user.getDinero());
 		Page<Oferta> ofertas = new PageImpl<Oferta>(new LinkedList<Oferta>());
 		// en caso de que sea una cadena vacía se tienen que listar todas las ofertas de
 		// la página
 		if (searchText == "") {
 			model.addAttribute("ofertasList", ofertasService.searchAllOfertas(pageable));
-			//model.addAttribute("page", ofertas);
-			return "oferta/search :: tableOfertas";
+			model.addAttribute("page", ofertas);
+			return "oferta/search :: body";
 		}
 		// en caso de que el searchtext no esté vacío mostrar resultados.
 		if (searchText != null && !searchText.isEmpty()) {
 			ofertas = ofertasService.searchOfertaByTitulo(pageable, searchText);
 			model.addAttribute("ofertasList", ofertas.getContent());
-			//model.addAttribute("page", ofertas);
-			return "oferta/search :: tableOfertas";
-
+			model.addAttribute("page", ofertas);
+			return "oferta/search :: body";
 		}
-		
 		model.addAttribute("ofertasList", null);
-		return "oferta/search :: tableOfertas";
+		model.addAttribute("page", ofertas);
+		return "oferta/search :: body";
 	}
-
+	
 	@RequestMapping(value = "/oferta/add", method = RequestMethod.POST)
 	public String setOferta(@Validated Oferta oferta, BindingResult result, Principal principal) {
 		String email = principal.getName(); // email es el name de la autenticación
@@ -137,14 +146,14 @@ public class OfertasController {
 		User user = usersService.getUserByEmail(email);
 		double precioOferta = ofertasService.precioOferta(id);
 		double dineroUsuario = user.getDinero();
-		if(precioOferta <= dineroUsuario) {
+		if (precioOferta <= dineroUsuario) {
 			user.setDinero(dineroUsuario - precioOferta);
 			ofertasService.comprarOferta(id, user);
 			return "redirect:/oferta/list";
 		}
 		return "redirect:/oferta/list";
 	}
-	
+
 	@RequestMapping("/oferta/listCompras")
 	public String getListCompras(Model model, Principal principal) {
 		String email = principal.getName(); // email es el name de la autenticación
