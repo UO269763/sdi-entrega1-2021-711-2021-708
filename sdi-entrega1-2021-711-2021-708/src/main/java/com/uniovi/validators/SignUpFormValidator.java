@@ -25,6 +25,7 @@ public class SignUpFormValidator implements Validator {
 			errors.rejectValue("email", "Error.signup.email.arroba");
 		}
 		if (usersService.getUserByEmail(user.getEmail()) != null) {
+			System.out.print(usersService.getUserByEmail(user.getEmail()));
 			errors.rejectValue("email", "Error.signup.email.duplicate");
 		}
 		if (user.getName().length() < 5 || user.getName().length() > 24) {
