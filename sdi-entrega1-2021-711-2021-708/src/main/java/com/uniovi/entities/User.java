@@ -130,5 +130,10 @@ public class User {
 	public void comprarOferta(Oferta oferta) {
 		this.ofertasCompradas.add(oferta);
 	}
+	
+	@Override
+	public String toString() {
+		return email;
+	}
 
 }
