@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,6 +28,8 @@ import com.uniovi.validators.OfertaValidator;
 
 @Controller
 public class OfertasController {
+	
+	private static final Logger logger = LogManager.getLogger(UsersController.class);
 
 	@Autowired
 	private UsersService usersService;
@@ -107,6 +111,7 @@ public class OfertasController {
 			return "oferta/add";
 		}
 		ofertasService.addOferta(oferta, user);
+		logger.debug(String.format("Oferta añadida", user.getEmail()));
 		return "redirect:/oferta/list";
 	}
 
@@ -127,6 +132,7 @@ public class OfertasController {
 	@RequestMapping("/oferta/delete/{id}")
 	public String deleteOferta(@PathVariable Long id) {
 		ofertasService.deleteOferta(id);
+		logger.debug(String.format("Oferta borrada", ofertasService.getOferta(id).getUser().getEmail()));
 		return "redirect:/oferta/list";
 	}
 
@@ -139,6 +145,7 @@ public class OfertasController {
 		if (precioOferta <= dineroUsuario) {
 			user.setDinero(dineroUsuario - precioOferta);
 			ofertasService.comprarOferta(id, user);
+			logger.debug(String.format("Oferta comprada", user.getEmail()));
 			return "redirect:/oferta/list";
 		}
 		return "redirect:/oferta/list";

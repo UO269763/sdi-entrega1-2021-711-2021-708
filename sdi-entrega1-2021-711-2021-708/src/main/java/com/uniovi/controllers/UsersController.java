@@ -21,9 +21,13 @@ import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
 import com.uniovi.validators.SignUpFormValidator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 @Controller
 public class UsersController {
+	
+	private static final Logger logger = LogManager.getLogger(UsersController.class);
 
 	@Autowired
 	private RolesService rolesService;
@@ -57,6 +61,7 @@ public class UsersController {
 		user.setRole(rolesService.getRoles()[0]);
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
+		logger.debug(String.format("Auto login", user.getEmail()));
 		return "redirect:home";
 	}
 
@@ -121,6 +126,7 @@ public class UsersController {
 	@RequestMapping("/user/delete/{id}")
 	public String delete(@PathVariable Long id) {
 		usersService.deleteUser(id);
+		logger.debug(String.format("User eliminado", usersService.getUser(id).getEmail() ));
 		return "redirect:/user/list";
 	}
 
