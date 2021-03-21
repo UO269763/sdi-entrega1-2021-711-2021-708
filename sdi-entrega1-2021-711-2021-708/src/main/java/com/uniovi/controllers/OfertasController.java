@@ -95,7 +95,7 @@ public class OfertasController {
 		}
 		model.addAttribute("ofertasList", ofertas.getContent());
 		model.addAttribute("page", ofertas);
-		return "oferta/search :: body";
+		return "oferta/search :: tableOfertas";
 	}
 	
 	@RequestMapping(value = "/oferta/add", method = RequestMethod.POST)

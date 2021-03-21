@@ -78,6 +78,12 @@ public class OfertaService {
 		return ofertas;
 	}
 
+	public void guardarCompra(User user1, Oferta oferta1) {
+		usersRepository.save(user1);
+		ofertasRepository.save(oferta1);
+		
+	}
+
 	
 
 

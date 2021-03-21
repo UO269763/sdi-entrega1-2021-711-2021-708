@@ -89,30 +89,75 @@ public class InsertSampleDataService {
 		ofertasService.addOferta(oferta14, user5);
 		ofertasService.addOferta(oferta15, user5);
 
-//		// Añadir ofertas compradas
-//		Set<Oferta> user1Compras = new HashSet<Oferta>() {
-//		{
-//			add(oferta4);
-//			add(oferta5);
-//		}
-//	};
-//		user1.setOfertasCompradas(user1Compras);
-//		ofertasService.comprarOferta(oferta4.getId(), user1);
-//		ofertasService.comprarOferta(oferta5.getId(), user1);
-//		
-//		ofertasService.comprarOferta(oferta7.getId(), user2);
-//		ofertasService.comprarOferta(oferta8.getId(), user2);
-//
-//		ofertasService.comprarOferta(oferta10.getId(), user3);
-//		ofertasService.comprarOferta(oferta11.getId(), user3);
-//
-//		ofertasService.comprarOferta(oferta13.getId(), user4);
-//		ofertasService.comprarOferta(oferta14.getId(), user4);
-//
-//		ofertasService.comprarOferta(oferta1.getId(), user5);
-//		ofertasService.comprarOferta(oferta2.getId(), user5);
+		Set<Oferta> user1Compras = new HashSet<Oferta>() {
+			{
+				add(oferta4);
+				add(oferta5);
+			}
+		};
+		user1.setOfertasCompradas(user1Compras);
+		for (Oferta o : user1Compras) {
+			o.setComprable(false);
+			o.setComprador(user1);
+			user1.comprarOferta(o);
+			ofertasService.guardarCompra(user1, o);
+		}
 
-		
+		Set<Oferta> user2Compras = new HashSet<Oferta>() {
+			{
+				add(oferta7);
+				add(oferta8);
+			}
+		};
+		user2.setOfertasCompradas(user2Compras);
+		for (Oferta o : user2Compras) {
+			o.setComprable(false);
+			o.setComprador(user2);
+			user2.comprarOferta(o);
+			ofertasService.guardarCompra(user2, o);
+		}
+
+		Set<Oferta> user3Compras = new HashSet<Oferta>() {
+			{
+				add(oferta10);
+				add(oferta11);
+			}
+		};
+		user3.setOfertasCompradas(user3Compras);
+		for (Oferta o : user3Compras) {
+			o.setComprable(false);
+			o.setComprador(user2);
+			user3.comprarOferta(o);
+			ofertasService.guardarCompra(user3, o);
+		}
+
+		Set<Oferta> user4Compras = new HashSet<Oferta>() {
+			{
+				add(oferta13);
+				add(oferta14);
+			}
+		};
+		user4.setOfertasCompradas(user4Compras);
+		for (Oferta o : user4Compras) {
+			o.setComprable(false);
+			o.setComprador(user4);
+			user4.comprarOferta(o);
+			ofertasService.guardarCompra(user4, o);
+		}
+
+		Set<Oferta> user5Compras = new HashSet<Oferta>() {
+			{
+				add(oferta1);
+				add(oferta2);
+			}
+		};
+		user5.setOfertasCompradas(user5Compras);
+		for (Oferta o : user5Compras) {
+			o.setComprable(false);
+			o.setComprador(user5);
+			user5.comprarOferta(o);
+			ofertasService.guardarCompra(user5, o);
+		}
 	}
 
 }

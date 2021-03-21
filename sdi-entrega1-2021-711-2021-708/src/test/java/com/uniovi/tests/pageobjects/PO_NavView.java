@@ -69,5 +69,25 @@ public class PO_NavView extends PO_View {
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", textLanguage, getTimeout());
 		elementos.get(0).click();
 	}
+	
+	static public void checkChangeIdiom(WebDriver driver, String textIdiom1, String textIdiom2, int locale1, int locale2) {
+		// Esperamos a que se cargue el saludo de bienvenida en Español
+		PO_NavView.checkNav(driver, locale1);
+		// Cambiamos a segundo idioma
+		PO_HomeView.changeIdiom(driver, textIdiom2);
+		// COmprobamos que el texto de bienvenida haya cambiado a segundo idioma
+		PO_NavView.checkNav(driver, locale2);
+		// Volvemos a Español.
+		PO_HomeView.changeIdiom(driver, textIdiom1);
+		// Esperamos a que se cargue el saludo de bienvenida en Español
+		PO_NavView.checkNav(driver, locale1);
+	}
+	
+	static public void checkNav(WebDriver driver, int language) {
+		//Esperamos a que se cargue el saludo de bienvenida en Español
+		SeleniumUtils.EsperaCargaPagina(driver, "text", p.getString("user_management.message", 
+		language), getTimeout());
+		
+	}
 
 }

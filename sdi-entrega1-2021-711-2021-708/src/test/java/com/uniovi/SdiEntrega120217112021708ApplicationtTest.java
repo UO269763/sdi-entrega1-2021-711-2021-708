@@ -33,12 +33,12 @@ public class SdiEntrega120217112021708ApplicationtTest {
 
 	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas)):
+	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
 	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
 	// Firefox\\firefox.exe";
-	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	static String Geckdriver024 = "C:\\Users\\santi\\Desktop\\Informatica\\Tercero\\SegundoCuatri\\SDI\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 	// static String Geckdriver024 =
-	// "C:\\Users\\Usuario\\Desktop\\TERCEROINFORMATICA\\SEGUNDOSEMESTRE\\SDI\\lab\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	// "C:\\Users\\santi\\Desktop\\Informatica\\Tercero\\SegundoCuatri\\SDI\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	static String Geckdriver024 = "C:\\Users\\Usuario\\Desktop\\TERCEROINFORMATICA\\SEGUNDOSEMESTRE\\SDI\\lab\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 	// En MACOSX (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas):
 	// static String PathFirefox65 =
@@ -202,7 +202,7 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		PO_View.checkElement(driver, "text", "Gestión de ofertas");
 		// Ahora nos desconectamos
 		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
-		//PO_PrivateView.logOut(driver, "Desconectar");
+		// PO_PrivateView.logOut(driver, "Desconectar");
 		PO_View.checkElement(driver, "text", "Identifícate");
 	}
 
@@ -237,8 +237,8 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		elementos.get(0).click();
 		// Contamos el número de filas de notas
 		List<WebElement> numElementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
-		PO_View.getTimeout());
-		//COMPROBAR NUMERO QUE VAMOS A PONER
+				PO_View.getTimeout());
+		// COMPROBAR NUMERO QUE VAMOS A PONER
 		assertTrue(numElementos.size() == 6);
 	}
 
@@ -304,8 +304,8 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		elementos.get(0).click();
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "valdes@email.es", PO_View.getTimeout());
 	}
-	
-	//15 no se
+
+	// 15 no se
 
 	// 16.Ir al formulario de alta de oferta, rellenarla con datos válidos y pulsar
 	// el botón Submit.
@@ -423,8 +423,6 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Camiseta azul", PO_View.getTimeout());
 	}
 
-
-
 	// ECHAR UN OJO QUE ID TIENE EL ULTIMO CUANDO CREEMOS LA BASE
 	@Test
 	public void PR20() {
@@ -478,14 +476,16 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		buscar.sendKeys("");
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
-		//Contamos el número de filas de notas --> todos los existentes
-		List<WebElement> numEementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		
-		//Falta comprobar el numero de ofertas que vamos a poner
+		// Contamos el número de filas de notas --> todos los existentes
+		List<WebElement> numEementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
+				PO_View.getTimeout());
+
+		// Falta comprobar el numero de ofertas que vamos a poner
 		assertTrue(numEementos.size() == 5);
 	}
-	
-	// Hacer una búsqueda escribiendo en el campo un texto que no exista y comprobar que se
+
+	// Hacer una búsqueda escribiendo en el campo un texto que no exista y comprobar
+	// que se
 	// muestra la página que corresponde, con la lista de ofertas vacía.
 	@Test
 	public void PR22() {
@@ -508,12 +508,14 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		buscar.sendKeys("Gorra");
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
-		//Comprobamos que no existe ningun boton enviar solicitud/enviada
+		// Comprobamos que no existe ningun boton enviar solicitud/enviada
 		SeleniumUtils.textoNoPresentePagina(driver, "Sudadera");
 	}
-	
-	// 23. Sobre una búsqueda determinada (a elección del desarrollador), comprar una oferta que deja
-	//un saldo positivo en el contador del comprador. Comprobar que el contador se actualiza correctamente
+
+	// 23. Sobre una búsqueda determinada (a elección del desarrollador), comprar
+	// una oferta que deja
+	// un saldo positivo en el contador del comprador. Comprobar que el contador se
+	// actualiza correctamente
 	// en la vista del comprador.
 	@Test
 	public void PR23() {
@@ -536,13 +538,12 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		buscar.sendKeys("");
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
-		
-		
+
 		// Comprar una sudadera
 	}
-	
-	
-	// 26. Ir a la opción de ofertas compradas del usuario y mostrar la lista. Comprobar que aparecen
+
+	// 26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
+	// Comprobar que aparecen
 	// las ofertas que deben aparecer
 	@Test
 	public void PR26() {
@@ -562,30 +563,69 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		SeleniumUtils.esperarSegundos(driver, 2);
 		PO_View.checkElement(driver, "text", "Sudadera");
 	}
-	
-	
-	
-	// 28. Intentar acceder sin estar autenticado a la opción de listado de usuarios del administrador. Se
+
+	// 27. Visualizar al menos cuatro páginas haciendo el cambio
+	// español/inglés/español
+	// (comprobando que algunas de las etiquetas cambian al idioma correspondiente).
+	// Página principal/Opciones principales de usuario/Listado de usuarios /Vista
+	// de alta de oferta.
+	@Test
+	public void PR27() {
+		// primero comprobamos el mensaje de bienvenida
+		PO_HomeView.checkChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+		// comprobamos las opciones del usuario
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "admin@email.es", "123456");
+		// Comprobamos las opciones de menu
+		PO_NavView.checkChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+		// entramos en el listado de usuarios
+		// Pinchamos la opcion de menu de usuario
+		List<WebElement> elementoss = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementoss.get(0).click();
+		// Buscamos la opcion de ver lista de usuario
+		elementoss = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
+		elementoss.get(0).click();
+		// cambiamos de idioma
+		PO_PrivateView.checkChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+		// por ultimo comprobamos la vista de alta de oferta
+		// Pinchamos la opcion de menu de usuario
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'ofertas-menu')]/a");
+		elementos.get(0).click();
+		// Buscamos la opcion de ver lista de usuario
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'oferta/add')]");
+		elementos.get(0).click();
+
+	}
+
+	// 28. Intentar acceder sin estar autenticado a la opción de listado de usuarios
+	// del administrador. Se
 	// deberá volver al formulario de login.
 	@Test
 	public void PR28() {
 		URL = "http://localhost:8090/user/list";
-		
+
 		driver.navigate().to(URL);
 		PO_View.checkElement(driver, "text", "Identifícate");
 	}
-	
-	// 29. Intentar acceder sin estar autenticado a la opción de listado de ofertas propias de un usuario
+
+	// 29. Intentar acceder sin estar autenticado a la opción de listado de ofertas
+	// propias de un usuario
 	// estándar. Se deberá volver al formulario de login.
 	@Test
 	public void PR29() {
 		URL = "http://localhost:8090/oferta/list";
-		
+
 		driver.navigate().to(URL);
 		PO_View.checkElement(driver, "text", "Identifícate");
 	}
-	
-	// 30. Estando autenticado como usuario estándar intentar acceder a la opción de listado de
+
+	// 30. Estando autenticado como usuario estándar intentar acceder a la opción de
+	// listado de
 	// usuarios del administrador. Se deberá indicar un mensaje de acción prohibida.
 	@Test
 	public void PR30() {
@@ -595,11 +635,11 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		PO_LoginView.fillForm(driver, "pedro@email.es", "123456");
 		// COmprobamos que entramos en la pagina privada de usuario
 		PO_View.checkElement(driver, "text", "Gestión de ofertas");
-		
+
 		URL = "http://localhost:8090/user/list";
-		
+
 		driver.navigate().to(URL);
-		
+
 		SeleniumUtils.textoPresentePagina(driver, "HTTP Status 403 – Forbidden");
 	}
 }
