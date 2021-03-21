@@ -27,7 +27,7 @@ import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.tests.util.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.JVM)
 
 public class SdiEntrega120217112021708ApplicationtTest {
 
@@ -541,6 +541,13 @@ public class SdiEntrega120217112021708ApplicationtTest {
 
 		// Comprar una sudadera
 	}
+
+	// 24. Sobre una búsqueda determinada (a elección del desarrollador), comprar
+	// una oferta que deja un saldo 0 en el contador del comprador.
+	// Comprobar que el contador se actualiza correctamente en la vista del
+	// comprador.
+
+	// 25.
 
 	// 26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
 	// Comprobar que aparecen
