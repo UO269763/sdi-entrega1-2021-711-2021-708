@@ -63,20 +63,15 @@ public class OfertasController {
 		Page<Oferta> ofertas = new PageImpl<Oferta>(new LinkedList<Oferta>());
 		// en caso de que sea una cadena vacía se tienen que listar todas las ofertas de
 		// la página
-		if (searchText == "") {
-			model.addAttribute("ofertasList", ofertasService.searchAllOfertas(pageable));
-			model.addAttribute("page", ofertas);
-			return "oferta/search";
-		}
 		// en caso de que el searchtext no esté vacío mostrar resultados.
 		if (searchText != null && !searchText.isEmpty()) {
 			ofertas = ofertasService.searchOfertaByTitulo(pageable, searchText);
-			model.addAttribute("ofertasList", ofertas.getContent());
-			model.addAttribute("page", ofertas);
-			return "oferta/search";
 
 		}
-		model.addAttribute("ofertasList", null);
+		else {
+			ofertas = ofertasService.searchAllOfertas(pageable);
+		}
+		model.addAttribute("ofertasList", ofertas.getContent());
 		model.addAttribute("page", ofertas);
 		return "oferta/search";
 	}
@@ -92,18 +87,13 @@ public class OfertasController {
 		// en caso de que sea una cadena vacía se tienen que listar todas las ofertas de
 		// la página
 		if (searchText == "") {
-			model.addAttribute("ofertasList", ofertasService.searchAllOfertas(pageable));
-			model.addAttribute("page", ofertas);
-			return "oferta/search :: body";
+			ofertas =  ofertasService.searchAllOfertas(pageable);
 		}
 		// en caso de que el searchtext no esté vacío mostrar resultados.
 		if (searchText != null && !searchText.isEmpty()) {
 			ofertas = ofertasService.searchOfertaByTitulo(pageable, searchText);
-			model.addAttribute("ofertasList", ofertas.getContent());
-			model.addAttribute("page", ofertas);
-			return "oferta/search :: body";
 		}
-		model.addAttribute("ofertasList", null);
+		model.addAttribute("ofertasList", ofertas.getContent());
 		model.addAttribute("page", ofertas);
 		return "oferta/search :: body";
 	}

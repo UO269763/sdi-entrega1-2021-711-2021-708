@@ -201,6 +201,7 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		// COmprobamos que entramos en la pagina privada de usuario
 		PO_View.checkElement(driver, "text", "Gestión de ofertas");
 		// Ahora nos desconectamos
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 		//PO_PrivateView.logOut(driver, "Desconectar");
 		PO_View.checkElement(driver, "text", "Identifícate");
 	}
