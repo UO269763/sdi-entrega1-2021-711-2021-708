@@ -17,6 +17,10 @@
 					<b th:if="${session.containsKey('dinero')}"
 					th:text="${session.dinero}">€</b>
 		</p>
+		<p>
+					<b th:if="${session.containsKey('email')}"
+					th:text="${session.email}"></b>
+		</p>
 	</div>
 	<footer th:replace="fragments/footer" />
 </body>

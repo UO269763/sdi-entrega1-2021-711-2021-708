@@ -66,6 +66,11 @@
 								</div>
 							</div>
 						</td>
+						<td>
+							<div th:if="${oferta.precio > session.dinero && oferta.comprable}" >
+								No tienes saldo suficiente
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>

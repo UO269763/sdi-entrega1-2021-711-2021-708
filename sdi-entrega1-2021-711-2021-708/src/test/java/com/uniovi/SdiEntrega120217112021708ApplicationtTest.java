@@ -1,5 +1,6 @@
 package com.uniovi;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -15,7 +16,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.uniovi.entities.User;
+import com.uniovi.services.UsersService;
 import com.uniovi.tests.pageobjects.PO_AgregarOfertaView;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
@@ -30,15 +34,15 @@ import com.uniovi.tests.util.SeleniumUtils;
 //@FixMethodOrder(MethodSorters.JVM)
 
 public class SdiEntrega120217112021708ApplicationtTest {
+	
 
 	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas)):
 	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
 	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
 	// Firefox\\firefox.exe";
-	// static String Geckdriver024 =
-	// "C:\\Users\\santi\\Desktop\\Informatica\\Tercero\\SegundoCuatri\\SDI\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
-	static String Geckdriver024 = "C:\\Users\\Usuario\\Desktop\\TERCEROINFORMATICA\\SEGUNDOSEMESTRE\\SDI\\lab\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	 static String Geckdriver024 = "C:\\Users\\santi\\Desktop\\Informatica\\Tercero\\SegundoCuatri\\SDI\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	//static String Geckdriver024 = "C:\\Users\\Usuario\\Desktop\\TERCEROINFORMATICA\\SEGUNDOSEMESTRE\\SDI\\lab\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 	// En MACOSX (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas):
 	// static String PathFirefox65 =
@@ -239,73 +243,8 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		List<WebElement> numElementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
 				PO_View.getTimeout());
 		// COMPROBAR NUMERO QUE VAMOS A PONER
-		assertTrue(numElementos.size() == 6);
+		assertTrue(numElementos.size() == 7);
 	}
-
-	// 13. Ir a la lista de usuarios, borrar el primer usuario de la lista,
-	// comprobar que la lista se actualiza
-	// y que el usuario desaparece.
-	@Test
-	public void PR13() {
-		// Vamos al formulario de logueo.
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		// Rellenamos el formulario
-		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "admin@email.es", "123456");
-		// COmprobamos que entramos en la pagina privada de usuario
-		PO_View.checkElement(driver, "text", "Gestión de ofertas");
-		// Pinchamos la opcion de menu de usuario
-		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
-		elementos.get(0).click();
-		// Buscamos la opcion de ver lista de usuario
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
-		elementos.get(0).click();
-		// Comprobamos que aparecen los usuarios
-		elementos = PO_View.checkElement(driver, "text", "pedro@email.es");
-
-		// Buscamos el primer checkbox y lo clicamos
-		SeleniumUtils.esperarSegundos(driver, 5);
-		elementos = SeleniumUtils.EsperaCargaPaginaxpath(driver, "1", 1);
-		elementos.get(0).click();
-		// Buscamos el boton de eliminar y lo clicamos
-		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'deleteButtonUsuarios')]/a");
-		// *[@id="deleteButtonUsuarios"]
-		elementos.get(0).click();
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "pedro@email.es", PO_View.getTimeout());
-	}
-
-	// 14. Ir a la lista de usuarios, borrar el último usuario de la lista,
-	// comprobar que la lista se actualiza
-	// y que el usuario desaparece.
-	@Test
-	public void PR14() {
-		// Vamos al formulario de logueo.
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		// Rellenamos el formulario
-		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "admin@email.es", "123456");
-		// COmprobamos que entramos en la pagina privada de usuario
-		PO_View.checkElement(driver, "text", "Gestión de ofertas");
-		// Pinchamos la opcion de menu de usuario
-		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
-		elementos.get(0).click();
-		// Buscamos la opcion de ver lista de usuario
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
-		elementos.get(0).click();
-		// Comprobamos que aparece el ultimo usuario
-		elementos = PO_View.checkElement(driver, "text", "valdes@email.es");
-
-		// Buscamos el ultimo checkbox y lo clicamos
-		SeleniumUtils.esperarSegundos(driver, 1);
-		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id,\\\"5\\\"");
-		elementos.get(0).click();
-		// Buscamos el boton de eliminar y lo clicamos
-		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'deleteButtonUsuarios')]/a");
-		elementos.get(0).click();
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "valdes@email.es", PO_View.getTimeout());
-	}
-
-	// 15 no se
 
 	// 16.Ir al formulario de alta de oferta, rellenarla con datos válidos y pulsar
 	// el botón Submit.
@@ -417,7 +356,7 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		PO_View.checkElement(driver, "text", "Camiseta azul");
 
 		// Eliminamos la primera
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'oferta/delete/7')]");
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'oferta/delete/8')]");
 		elementos.get(0).click();
 		// Comprobamos que no se encuentre
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Camiseta azul", PO_View.getTimeout());
@@ -449,7 +388,7 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'oferta/delete/9')]");
 		elementos.get(0).click();
 		// Comprobamos que no se encuentre
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Pantalon azul", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Sudadera azul", PO_View.getTimeout());
 	}
 
 	// 21. Hacer una búsqueda con el campo vacío y comprobar que se muestra la
@@ -535,19 +474,85 @@ public class SdiEntrega120217112021708ApplicationtTest {
 		WebElement buscar = driver.findElement(By.name("searchText"));
 		buscar.click();
 		buscar.clear();
-		buscar.sendKeys("");
+		buscar.sendKeys("Gorra");
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
 
 		// Comprar una sudadera
+		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
+		elementos.get(0).click();
+		URL = "http://localhost:8090";
+		driver.navigate().to(URL);
+		PO_View.checkElement(driver, "text", "90");
 	}
 
 	// 24. Sobre una búsqueda determinada (a elección del desarrollador), comprar
 	// una oferta que deja un saldo 0 en el contador del comprador.
 	// Comprobar que el contador se actualiza correctamente en la vista del
 	// comprador.
+	@Test
+	public void PR24() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "pedro@email.es", "123456");
+		// COmprobamos que entramos en la pagina privada de usuario
+		PO_View.checkElement(driver, "text", "Gestión de ofertas");
+		// Pinchamos la opcion de menu de usuario
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'ofertas-menu')]/a");
+		elementos.get(0).click();
+		// Buscamos la opcion de ver lista de usuario
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'oferta/search')]");
+		elementos.get(0).click();
+		// Comprobamos que tenga sus ofertas.
+		WebElement buscar = driver.findElement(By.name("searchText"));
+		buscar.click();
+		buscar.clear();
+		buscar.sendKeys("Abrigo");
+		By boton = By.className("btn");
+		driver.findElement(boton).click();
 
-	// 25.
+		// Comprar una sudadera
+		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
+		elementos.get(0).click();
+		URL = "http://localhost:8090";
+		driver.navigate().to(URL);
+		PO_View.checkElement(driver, "text", "0");
+	}
+	
+	
+	// 25. Sobre una búsqueda determinada (a elección del desarrollador), intentar comprar una oferta
+	// que esté por encima de saldo disponible del comprador. Y comprobar que se muestra el mensaje de
+	// saldo no suficiente.
+	@Test
+	public void PR25() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@email.es", "123456");
+		// COmprobamos que entramos en la pagina privada de usuario
+		PO_View.checkElement(driver, "text", "Gestión de ofertas");
+		// Pinchamos la opcion de menu de usuario
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'ofertas-menu')]/a");
+		elementos.get(0).click();
+		// Buscamos la opcion de ver lista de usuario
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'oferta/search')]");
+		elementos.get(0).click();
+		// Comprobamos que tenga sus ofertas.
+		WebElement buscar = driver.findElement(By.name("searchText"));
+		buscar.click();
+		buscar.clear();
+		buscar.sendKeys("Sombrero");
+		By boton = By.className("btn");
+		driver.findElement(boton).click();
+
+		// Comprar un sombreo
+		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
+		//Como no tiene dinero se tendra que quedar el saldo en 100
+		URL = "http://localhost:8090";
+		driver.navigate().to(URL);
+		PO_View.checkElement(driver, "text", "100");
+	}
 
 	// 26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
 	// Comprobar que aparecen
@@ -649,4 +654,94 @@ public class SdiEntrega120217112021708ApplicationtTest {
 
 		SeleniumUtils.textoPresentePagina(driver, "HTTP Status 403 – Forbidden");
 	}
+	
+	
+	// 13. Ir a la lista de usuarios, borrar el primer usuario de la lista,
+	// comprobar que la lista se actualiza
+	// y que el usuario desaparece.
+	@Test
+	public void PR31() {
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "admin@email.es", "123456");
+		// COmprobamos que entramos en la pagina privada de usuario
+		PO_View.checkElement(driver, "text", "Gestión de ofertas");
+		// Pinchamos la opcion de menu de usuario
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		// Buscamos la opcion de ver lista de usuario
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
+		elementos.get(0).click();
+		// Comprobamos que aparecen los usuarios
+		List<WebElement> check =PO_View.checkElement(driver, "class", "checkbox");
+		int numCheckBox = check.size();
+		assertEquals(7, numCheckBox);
+		check.get(0).click();
+		PO_View.checkElement(driver, "id", "deleteButtonUsuarios").get(0).click();
+		check =PO_View.checkElement(driver, "class", "checkbox");
+		int num2CheckBox= check.size();
+		assertEquals(num2CheckBox,numCheckBox-1);
+	}
+
+	// 14. Ir a la lista de usuarios, borrar el último usuario de la lista,
+	// comprobar que la lista se actualiza
+	// y que el usuario desaparece.
+	@Test
+	public void PR32() {
+		// Vamos al formulario de logueo.
+				PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+				// Rellenamos el formulario
+				// Rellenamos el formulario
+				PO_LoginView.fillForm(driver, "admin@email.es", "123456");
+				// COmprobamos que entramos en la pagina privada de usuario
+				PO_View.checkElement(driver, "text", "Gestión de ofertas");
+				// Pinchamos la opcion de menu de usuario
+				List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+				elementos.get(0).click();
+				// Buscamos la opcion de ver lista de usuario
+				elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
+				elementos.get(0).click();
+				// Comprobamos que aparecen los usuarios
+				List<WebElement> check =PO_View.checkElement(driver, "class", "checkbox");
+				int numCheckBox = check.size();
+				assertEquals(6, numCheckBox);
+				check.get(numCheckBox-1).click();
+				PO_View.checkElement(driver, "id", "deleteButtonUsuarios").get(0).click();
+				check =PO_View.checkElement(driver, "class", "checkbox");
+				int num2CheckBox= check.size();
+				assertEquals(num2CheckBox,numCheckBox-1);
+	}
+	
+		// 15. Ir a la lista de usuarios, borrar 3 usuarios, comprobar que la lista se actualiza y que los
+		// usuarios desaparecen.
+		@Test
+		public void PR33() {
+			// Vamos al formulario de logueo.
+					PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+					// Rellenamos el formulario
+					// Rellenamos el formulario
+					PO_LoginView.fillForm(driver, "admin@email.es", "123456");
+					// COmprobamos que entramos en la pagina privada de usuario
+					PO_View.checkElement(driver, "text", "Gestión de ofertas");
+					// Pinchamos la opcion de menu de usuario
+					List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+					elementos.get(0).click();
+					// Buscamos la opcion de ver lista de usuario
+					elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
+					elementos.get(0).click();
+					// Comprobamos que aparecen los usuarios
+					List<WebElement> check =PO_View.checkElement(driver, "class", "checkbox");
+					int numCheckBox = check.size();
+					assertEquals(5, numCheckBox);
+					check.get(0).click();
+					check.get(1).click();
+					check.get(2).click();
+					PO_View.checkElement(driver, "id", "deleteButtonUsuarios").get(0).click();
+					SeleniumUtils.esperarSegundos(driver, 2);
+					check =PO_View.checkElement(driver, "class", "checkbox");
+					int num2CheckBox= check.size();
+					assertEquals(num2CheckBox,3);
+		}
 }

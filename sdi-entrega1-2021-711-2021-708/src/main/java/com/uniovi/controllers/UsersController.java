@@ -72,8 +72,8 @@ public class UsersController {
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String home(Model model, @ModelAttribute User user) {
 		// HttpSession
-		httpSession.setAttribute("dinero", user.getDinero());
 		model.addAttribute("user", user);
+		httpSession.setAttribute("dinero", user.getDinero());
 		return "home";
 	}
 

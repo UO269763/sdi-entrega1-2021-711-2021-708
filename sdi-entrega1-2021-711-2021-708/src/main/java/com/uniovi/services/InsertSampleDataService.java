@@ -59,7 +59,13 @@ public class InsertSampleDataService {
 		User user6 = new User("admin@email.es", "Edward", "Núñez");
 		user6.setPassword("123456");
 		user6.setRole("ROLE_ADMIN");
-
+		
+		User user7 = new User("marcos@email.es", "Marcos", "Marino");
+		user7.setPassword("123456");
+		user7.setRole("ROLE_USER");
+		Oferta oferta16 = new Oferta(user1, "Gorra", "Seminueva", 10);
+		Oferta oferta17 = new Oferta(user1, "Abrigo", "Azul", 90);
+		Oferta oferta18 = new Oferta(user1, "Sombrero", "Amarillo", 120);
 		// Añadir usuarios al service
 		usersService.addUser(user1);
 		usersService.addUser(user2);
@@ -67,6 +73,7 @@ public class InsertSampleDataService {
 		usersService.addUser(user4);
 		usersService.addUser(user5);
 		usersService.addUser(user6);
+		usersService.addUser(user7);
 
 		// Añadir ofertas al service
 		ofertasService.addOferta(oferta1, user1);
@@ -88,6 +95,10 @@ public class InsertSampleDataService {
 		ofertasService.addOferta(oferta13, user5);
 		ofertasService.addOferta(oferta14, user5);
 		ofertasService.addOferta(oferta15, user5);
+		
+		ofertasService.addOferta(oferta16, user7);
+		ofertasService.addOferta(oferta17, user7);
+		ofertasService.addOferta(oferta18, user7);
 
 		Set<Oferta> user1Compras = new HashSet<Oferta>() {
 			{
